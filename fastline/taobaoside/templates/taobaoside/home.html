@@ -1,0 +1,96 @@
+<!-- search_page.html -->
+<html>
+  <head>
+    <title>Search</title>
+    <style>
+      /* Add a cool background image to the page */
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('cool-background.jpg');
+        background-size: cover;
+        height: 100vh;
+      }
+
+
+      /* Center the search bar and footer on the page */
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Style the search bar */
+      form {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 4px;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 0.5em;
+        font-size: 1.2em;
+      }
+
+      button[type="submit"] {
+        padding: 0.5em 1em;
+        border: none;
+        background-color: #333;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+      }
+
+      /* Style the footer */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1em;
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+      }
+      .logo {
+        width: 100px;
+        height: 100px;
+        background-size: cover;
+      }
+      .taobao-logo {
+        background-image: url('taobao-logo.png');
+      }
+
+      .shopee-logo {
+        background-image: url('shopee-logo.png');
+      }
+
+      .arrow {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 50px 0 50px 70px;
+        border-color: transparent transparent transparent #333;
+        margin: 0 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Search a product on taobao</h1>
+      <form action="{% url 'taobaoside:search_item' %}" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Search..." name='search_query'>
+        <button type="submit">Go</button>
+      </form>
+
+    </div>
+    <footer>
+      Copyright 2022 FastLine
+    </footer>
+  </body>
+</html>
