@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Search Result</title>
+  </head>
+  <body>
+    <h1>Your search result</h1>
+    <div style="width: 1200px;">
+    {% for item in items %}
+      <a href="{% url 'taobaoside:item_detail' item.num_iid %}" style="float: left; margin-right: 20px;width : 190px;">
+        <img src="{{ item.pic }}" alt="{{ item.title }}" style="width : 190px"/>
+        <p>{{ item.title }}</p>
+        <p>Price: {{ item.price }}</p>
+        <p>Promo: {{ item.promotion_price }}</p>
+        <p>Seller: {{ item.shop_title }}</p>
+      </a>
+      {% if forloop.counter|divisibleby:5 %}
+        <div style="clear: both;"></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Product</title>
+    <style>
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Product details</h1>
+    <div style="display: flex;">
+      <div style="width: 200px;">
+        <img src="{{ details.images.0 }}" alt="{{ details.title }}" style="width: 200px;" />
+      </div>
+      <div>
+        <h2>{{details.title}}</h2>
+
+        <p>Price: {{ details.price }}</p>
+        <p>Promo: {{ details.promotion_price }}</p>
+        <a href="#" class="button">Add to Shopee</a>
+      </div>
+    </div>
+    <div>
+      <h3>Additional Images</h3>
+      <div style="width: 1200px;">
+        {% for image in details.images|slice:"1:" %}
+          <img src="{{ image }}" alt="{{ details.title }} additional image" style="width:200px"/>
+        {% endfor %}
+      </div>
+
+      <div style="width: 1200px;">
+
+        {% for image in images %}
+          <img src="{{ image }}" alt="{{ details.title }} additional image" style="width:300px"/>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
