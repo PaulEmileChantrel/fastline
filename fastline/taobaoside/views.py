@@ -32,5 +32,35 @@ class ItemDetails(generic.ListView):
         #print(kwargs)
         item_id = kwargs['slug']
         context = taobao_item_search(item_id)
-        print(context['images'][0])
+        print('ok')
+        print(context)
+        print('ok')
+        #print(context['images'][0])
         return render(request, 'taobaoside/item_details.html',context=context)
+
+
+class AddShopee(generic.ListView):
+
+    def get(self,request, *args, **kwargs):
+        item_id = kwargs['slug']
+        context = taobao_item_search(item_id)
+        return render(request, 'taobaoside/add_item.html',context=context)
+
+    def post(self,request, *args, **kwargs):
+        # Add to shopee
+        return render(request, 'taobaoside/product_added.html')
+
+
+
+
+
+
+# average_BMI = 0
+# name_list = list(d.keys())
+# for key in name_list:
+#     height = d[key]['h']
+#     weight = d[key]['w']
+#     BMI = w/(h/100)**2
+#     average_BMI += BMI
+#
+# average_BMI = average_BMI /len(d)

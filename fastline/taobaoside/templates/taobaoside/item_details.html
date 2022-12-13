@@ -23,7 +23,7 @@
 
         <p>Price: {{ details.price }}</p>
         <p>Promo: {{ details.promotion_price }}</p>
-        <a href="#" class="button">Add to Shopee</a>
+        <a href="{% url 'taobaoside:add_shopee' details.num_iid %}" class="button">Add to Shopee</a>
       </div>
     </div>
     <div>

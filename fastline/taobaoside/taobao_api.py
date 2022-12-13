@@ -5,7 +5,7 @@ import pprint
 from fastline.config import taobao_api_key
 
 
-API_ON = True
+API_ON = False
 
 
 def call_taobao_api(querystring):
@@ -71,6 +71,15 @@ def taobao_item_search(item_id):
 		details = taobao_item_details(item_id)
 
 	else:
-		images = pd.read_csv('taobao_item_test.csv')
-		details = pd.read_csv('taobao_item_image.csv')
+		details = pd.read_csv('taobao_item_test.csv')
+		images = pd.read_csv('taobao_item_image.csv')
+
+		new_images = images.to_dict('records')
+		images = ['https:'+image['0'] for image in new_images]
+		details = details.to_dict('records')
+		details_images = [detail['images'] for detail in details]
+		details = details[0]
+		details['images'] = details_images
+
+
 	return {'images':images,'details':details}
