@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>Product</title>
+    <style>
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+    </style>
+    <style>
+  /* Hide the tooltip text by default */
+  .tooltiptext {
+    display: none;
+  }
+
+  /* Show the tooltip text when the user hovers over the "?" symbol */
+  .tooltip:hover .tooltiptext {
+    display: inline-block;
+  }
+</style>
+
+  </head>
+  <body>
+    <h1>Product details</h1>
+    <div style="display: flex;">
+      <div style="width: 200px;">
+        <img src="{{ details.images.0 }}" alt="{{ details.title }}" style="width: 200px;" />
+      </div>
+      <div>
+        <form action="{%url 'taobaoside:product_added'%}" method="POST">
+          {% csrf_token %}
+          <label for="name">Title:</label>
+          <input type="text" id="name" name="name" value="{{ details.title }}"style="width:300px" />
+          <br />
+          <label for="price">Your selling Price:</label>
+          <input type="number" id="price" name="price" value="{{ details.promotion_price }}" onchange="updatePrice()"/>
+
+
+          <select id="currency" name="currency" onchange="updatePrice()">
+            <option value="CNY">CNY</option>
+            <option value="TWD">TWD</option>
+          </select>
+
+        <p>Profit : </p>
+        <p id="profit-display">0</p>
+        <label for="description">Add a product description : </label>
+        <br />
+        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <br />
+        <label for="autopurchase">
+       Activate Autopurchase:
+       <input type="checkbox" name="autopurchase" id="autopurchase">
+       <span class="tooltip">?
+         <span class="tooltiptext">
+           Enabling this option will automatically purchase the product when a customer buys it.
+         </span>
+       </span>
+     </label><br><br>
+        <button type="submit">Add to Shopee</button>
+        </form>
+      </div>
+
+    </div>
+    <div>
+      <h3>Additional Images</h3>
+      <div style="width: 1200px;">
+        {% for image in details.images|slice:"1:" %}
+          <img src="{{ image }}" alt="{{ details.title }} additional image" style="width:200px"/>
+        {% endfor %}
+      </div>
+
+      <div style="width: 1200px;">
+
+        {% for image in images %}
+          <img src="{{ image }}" alt="{{ details.title }} additional image" style="width:300px"/>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+
+  <script>
+function updatePrice() {
+    // Get the selected currency
+    var currency = document.querySelector('[name="currency"]').value;
+
+    var bought_price = {{ details.promotion_price }}
+
+    // Get the current price
+    var price = parseFloat(document.querySelector('[name="price"]').value);
+
+    // Convert the price to the selected currency
+    if (currency == 'CNY') {
+        // Convert to CNY
+        profit = price - bought_price;
+        var symbol = '¥';
+    } else if (currency == 'TWD') {
+        // Convert to TWD
+        profit = price - bought_price * 30/6.5;
+         var symbol = 'NT$';
+    }
+
+    // Update the price field with the converted value
+document.getElementById('profit-display').innerHTML = symbol + profit;}
+</script>
+
+</html>
