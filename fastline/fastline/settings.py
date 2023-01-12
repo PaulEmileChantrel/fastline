@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = djando_secret
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") == '1'
 
 ALLOWED_HOSTS = []
 
@@ -82,6 +82,33 @@ DATABASES = {
     }
 }
 
+DB_USER=os.environ.get("POSTGRES_USER")
+DB_PASSWORD=os.environ.get("POSTGRES_PASSWORD")
+DB_NAME=os.environ.get("POSTGRES_DB")
+DB_HOST=os.environ.get("POSTGRES_HOST")
+DB_PORT=os.environ.get("POSTGRES_PORT")
+
+DB_IS_AVAIL = all([
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
+    DB_HOST,
+    DB_PORT
+])
+POSTGRES_READY = os.environ.get("POSTGRES_READY") == '1'
+
+
+if DB_IS_AVAIL and POSTGRES_READY:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER':DB_USER,
+        'PASSWORD':DB_PASSWORD,
+        'HOTS':DB_HOST,
+        'PORT':DB_PORT,
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
