@@ -1,0 +1,10 @@
+version: "3.10"
+services:
+  fastline:
+    depends_on:
+      - postgres_db
+    build:
+      context: ./fastline
+      dockerfile: Dockerfile
+    image: django-k8s:v1
+ 
