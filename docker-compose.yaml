@@ -2,13 +2,13 @@ version: "3.10"
 services:
   fastline:
     build:
-      context: ./fastline
+      context: ./web
       dockerfile: Dockerfile
     image: fastline:v1
     environment:
       - PORT=8020
     env_file:
-      - ./fastline/.env
+      - ./web/.env
     ports:
       - "8001:8020"
     
