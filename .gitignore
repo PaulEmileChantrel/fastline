@@ -3,6 +3,9 @@ config.py
 fastline/config.py
 fastline/.env
 fastline/fastlinevenv3
+web/config.py
+web/.env
+web/fastlinevenv3
 
 # Django #
 *.log
