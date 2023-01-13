@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import dotenv
+import dotenv,pathlib
 
 def main():
     """Run administrative tasks."""
@@ -19,5 +19,6 @@ def main():
 
 
 if __name__ == '__main__':
+    print(pathlib.Path(__file__).resolve())
     dotenv.read_dotenv()
     main()
